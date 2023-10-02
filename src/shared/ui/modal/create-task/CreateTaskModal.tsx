@@ -2,15 +2,17 @@ import { IPriority } from 'entities/priorities'
 import { Plus, X } from 'lucide-react'
 import { useState } from 'react'
 import cls from './CreateTaskModal.module.scss'
+import { IStatus } from 'entities/status'
 
 interface CreateTaskModalProps {
 	onCloseModal: () => void
 	handleCreateTask: (arg0: string, arg1: string) => void
 	priorities: IPriority[]
+	stat: IStatus
 }
 
 const CreateTaskModal = (props: CreateTaskModalProps) => {
-	const { onCloseModal, handleCreateTask, priorities } = props
+	const { onCloseModal, handleCreateTask, priorities, stat } = props
 	const [title, setTitle] = useState('')
 	const [activePriority, setActivePriority] = useState<string>(
 		priorities[0]._id
@@ -24,6 +26,7 @@ const CreateTaskModal = (props: CreateTaskModalProps) => {
 				</button>
 				<div className={cls.optionBlock}>
 					<h1 style={{ marginBottom: '0px', color: 'white' }}>Новая задача</h1>
+					<p>{stat.title}</p>
 					<input
 						type='text'
 						placeholder='Введите описание задачи'

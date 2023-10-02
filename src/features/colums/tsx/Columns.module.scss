@@ -1,10 +1,23 @@
+.draggingColumn {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	background: var(--main-bg);
+	width: 300px;
+	height: 600px;
+	border-radius: 10px;
+	padding: 8px;
+	opacity: 0.6;
+	border: 1px solid var(--font-sceen);
+}
+
 .column {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	background: var(--main-bg);
 	width: 300px;
-	max-height: 600px;
+	height: 600px;
 	border-radius: 10px;
 	padding: 8px;
 	.columnName {

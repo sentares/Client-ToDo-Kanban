@@ -6,11 +6,11 @@ import { useState } from 'react'
 import cls from './Tasks.module.scss'
 
 interface TasksCartProps {
-	task: ITask
+	fetchedTask: ITask
 }
 
 const TasksCart = (props: TasksCartProps) => {
-	const { task } = props
+	const { fetchedTask } = props
 
 	const [mouseHover, setMouseHover] = useState(false)
 
@@ -22,12 +22,11 @@ const TasksCart = (props: TasksCartProps) => {
 		transition,
 		isDragging,
 	} = useSortable({
-		id: task._id,
+		id: fetchedTask._id,
 		data: {
 			type: 'Task',
-			task,
+			fetchedTask,
 		},
-		// disabled: editMode,
 	})
 
 	const style = {
@@ -56,7 +55,7 @@ const TasksCart = (props: TasksCartProps) => {
 					</button>
 				</div>
 			)}
-			<div className={cls.content}>{task.title}</div>
+			<div className={cls.content}>{fetchedTask.title}</div>
 		</div>
 	)
 }

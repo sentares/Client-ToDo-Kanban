@@ -1,4 +1,5 @@
 import { SortableContext, useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import { IPriority } from 'entities/priorities'
 import { IStatus } from 'entities/status'
 import { ITask, TaskRequests } from 'entities/tasks'
@@ -45,13 +46,22 @@ const Columns = (props: ColumnsProps) => {
 			type: 'Column',
 			stat,
 		},
-		// disabled: editMode,
 	})
+
+	const style = {
+		transition,
+		transform: CSS.Transform.toString(transform),
+	}
 
 	const tasksIds = useMemo(() => {
 		return tasks.map(task => task._id)
 	}, [tasks])
 
+	if (isDragging) {
+		return (
+			<div ref={setNodeRef} style={style} className={cls.draggingColumn}></div>
+		)
+	}
 	return (
 		<>
 			{isOpenCreateModal && (
@@ -59,16 +69,17 @@ const Columns = (props: ColumnsProps) => {
 					onCloseModal={ruleModal}
 					handleCreateTask={handleCreateTask}
 					priorities={priorities}
+					stat={stat}
 				/>
 			)}
-			<div className={cls.column}>
-				<div className={cls.columnName}>
+			<div className={cls.column} ref={setNodeRef} style={style}>
+				<div className={cls.columnName} {...attributes} {...listeners}>
 					<div className={cls.title}>{stat.title}</div>
 				</div>
 				<div className={cls.tasksBlock}>
 					<SortableContext items={tasksIds}>
 						{tasks.map(task => (
-							<TasksCart key={task._id} task={task} />
+							<TasksCart key={task._id} fetchedTask={task} />
 						))}
 					</SortableContext>
 				</div>

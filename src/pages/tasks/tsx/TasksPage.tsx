@@ -33,7 +33,7 @@ const TasksPage = () => {
 			{loading && <h1>Loading...</h1>}
 			{error && <h1>Что то не так</h1>}
 			{tasks && !loading && projectId && (
-				<KanbanBoard tasks={tasks} projectId={projectId} />
+				<KanbanBoard fetchedTasks={tasks} projectId={projectId} />
 			)}
 		</div>
 	)
