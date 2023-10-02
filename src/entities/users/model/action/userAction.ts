@@ -7,7 +7,6 @@ export const fetchUsers = () => {
 	return async (dispatch: Dispatch<UserAction>) => {
 		try {
 			dispatch({ type: UserActionTypes.FETCH_USERS })
-			console.log(URL)
 
 			const response = await axios.get(`${URL}/user`)
 

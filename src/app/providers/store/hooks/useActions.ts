@@ -1,8 +1,9 @@
 import * as PriorityActions from 'entities/priorities/model/action/priorityAction'
+import * as ProfileAction from 'entities/profile/model/action/profileAction'
 import * as ProjectAction from 'entities/projects/model/action/projectAction'
 import * as StatusAction from 'entities/status/model/action/statusAction'
 import * as TasksAction from 'entities/tasks/model/action/taskAction'
-import * as UserAction from 'entities/user/model/action/userAction'
+import * as UserAction from 'entities/users/model/action/userAction'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -12,6 +13,7 @@ const ActionCreators = {
 	...TasksAction,
 	...PriorityActions,
 	...ProjectAction,
+	...ProfileAction,
 }
 
 export const useActions = () => {

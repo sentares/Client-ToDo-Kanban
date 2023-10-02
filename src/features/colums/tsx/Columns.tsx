@@ -7,6 +7,7 @@ import { Plus } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import CreateTaskModal from 'shared/ui/modal/create-task/CreateTaskModal'
 import cls from './Columns.module.scss'
+import { useTypedSelector } from 'app/providers/store'
 
 interface ColumnsProps {
 	projectId?: string
@@ -18,11 +19,13 @@ interface ColumnsProps {
 const Columns = (props: ColumnsProps) => {
 	const { tasks, stat, projectId, priorities } = props
 	const [isOpenCreateModal, setIsOpenCreateModal] = useState(false)
+
+	const { profile } = useTypedSelector(state => state.profile)
 	const { createTask } = TaskRequests()
 
 	const handleCreateTask = (title: string, priorityId: string) => {
 		if (projectId && title.length) {
-			createTask(title, stat._id, projectId, priorityId)
+			createTask(title, stat._id, projectId, priorityId, profile.token)
 		} else {
 			console.log('ed')
 		}

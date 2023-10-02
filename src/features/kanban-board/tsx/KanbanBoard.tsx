@@ -29,11 +29,6 @@ const KanbanBoard = memo((props: KanbanBoardProps) => {
 	const { onDragStart, onDragEnd, onDragOver, activeTask, tasks } =
 		KanbanModule(fetchedTasks)
 
-	useEffect(() => {
-		fetchStatuses()
-		fetchPriorities()
-	}, [])
-
 	const columnsId = useMemo(() => statuses.map(col => col._id), [statuses])
 
 	const sensors = useSensors(
@@ -43,6 +38,11 @@ const KanbanBoard = memo((props: KanbanBoardProps) => {
 			},
 		})
 	)
+
+	useEffect(() => {
+		fetchStatuses()
+		fetchPriorities()
+	}, [])
 
 	return (
 		<div className={cls.kanbanBoard}>
