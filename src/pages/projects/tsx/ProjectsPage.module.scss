@@ -1,0 +1,23 @@
+.projectsPage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	.project {
+		width: 320px;
+		padding: 20px;
+		border: 2px solid #511a2c;
+		border-radius: 10px;
+		color: white;
+		cursor: pointer;
+		transition: 0.3s;
+		&:hover {
+			background: #374155;
+			scale: 1.05;
+			border: 2px solid;
+		}
+		&:active {
+			scale: 1;
+		}
+	}
+}
