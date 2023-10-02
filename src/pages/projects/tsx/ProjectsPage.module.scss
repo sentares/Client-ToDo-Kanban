@@ -6,13 +6,13 @@
 	.project {
 		width: 320px;
 		padding: 20px;
-		border: 2px solid #511a2c;
+		border: 2px solid var(--calm-red);
 		border-radius: 10px;
 		color: white;
 		cursor: pointer;
 		transition: 0.3s;
 		&:hover {
-			background: #374155;
+			background: var(--blue-bg);
 			scale: 1.05;
 			border: 2px solid;
 		}

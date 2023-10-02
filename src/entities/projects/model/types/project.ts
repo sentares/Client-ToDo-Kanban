@@ -18,7 +18,7 @@ interface FetchProjectsAction {
 
 interface FetchProjectsSuccessAction {
 	type: ProjectActionsTypes.FETCH_PROJECTS_SUCCESS
-	payload: any[]
+	payload: IProject[]
 }
 
 interface FetchProjectsErrorAction {

@@ -1,0 +1,103 @@
+.createTaskModal {
+	height: 100vh;
+	width: 100vh;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.351);
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	text-align: center;
+	.content {
+		padding: 14px;
+		border-radius: 20px;
+		background: var(--blue-bg);
+		width: 32%;
+		position: relative;
+		.close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--agr-red);
+			color: white;
+			border: none;
+			padding: 4px;
+			font-size: 10px;
+			border-radius: 50%;
+			&:hover {
+				scale: 1.1;
+			}
+			&:active {
+				scale: 0.98;
+			}
+		}
+		.optionBlock {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			gap: 20px;
+			.inputTitle {
+				width: 94%;
+				border: none;
+				padding: 10px;
+				background: var(--main-bg);
+				font-size: 18px;
+				color: white;
+				border-radius: 8px;
+				border: 2px solid var(--main-bg);
+			}
+			.priorityBlock {
+				margin-top: 10px;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				flex-direction: column;
+				gap: 8px;
+				.priorityList {
+					width: 100%;
+					display: flex;
+					align-items: center;
+					gap: 8px;
+					.onePriority {
+						width: 100%;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						padding: 10px 0;
+						border-radius: 8px;
+						background: var(--main-bg);
+						cursor: pointer;
+					}
+				}
+			}
+			.addTask {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				width: 100%;
+				padding: 10px;
+				font-size: 18px;
+				background: var(--def-blue);
+				color: var(--font-sceen);
+				border: none;
+				border-radius: 8px;
+				font-weight: 700;
+				&:hover {
+					background: var(--font-sceen);
+					color: var(--calm-red);
+				}
+				&:active {
+					scale: 0.98;
+				}
+			}
+		}
+	}
+}

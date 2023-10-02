@@ -28,7 +28,26 @@ code {
 	border-radius: 8px;
 }
 
-button {
+p {
+	margin: 0;
+}
+
+button,
+input {
+	border: none;
+	outline: none;
+	transition: 0.3s;
 	cursor: pointer;
 	transition: 0.4s;
+}
+
+:root {
+	--main-bg: #171c2c;
+	--blue-bg: #374155;
+	--def-blue: #202b42;
+
+	--agr-red: #ac192a;
+	--calm-red: #511a2c;
+
+	--font-sceen: #f49d81;
 }

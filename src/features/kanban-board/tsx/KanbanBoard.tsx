@@ -1,22 +1,33 @@
-import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import {
+	DndContext,
+	DragStartEvent,
+	PointerSensor,
+	useSensor,
+	useSensors,
+} from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 import { useActions, useTypedSelector } from 'app/providers/store'
 import { ITask } from 'entities/tasks'
 import { Columns } from 'features/colums'
-import { memo, useEffect, useMemo } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import cls from './KanbanBoard.module.scss'
 
 interface KanbanBoardProps {
 	tasks: ITask[]
+	projectId?: string
 }
 const KanbanBoard = memo((props: KanbanBoardProps) => {
-	const { tasks } = props
-	const { fetchStatuses } = useActions()
+	const { tasks, projectId } = props
+	const { fetchStatuses, fetchPriorities } = useActions()
 
-	const { statuses, loading } = useTypedSelector(state => state.statuses)
+	const { statuses } = useTypedSelector(state => state.statuses)
+	const { priorities } = useTypedSelector(state => state.priorities)
+
+	const [activeTask, setActiveTask] = useState<ITask | null>(null)
 
 	useEffect(() => {
 		fetchStatuses()
+		fetchPriorities()
 	}, [])
 
 	const columnsId = useMemo(() => statuses.map(col => col._id), [statuses])
@@ -29,11 +40,18 @@ const KanbanBoard = memo((props: KanbanBoardProps) => {
 		})
 	)
 
+	function onDragStart(event: DragStartEvent) {
+		if (event.active.data.current?.type === 'Task') {
+			setActiveTask(event.active.data.current.task)
+			return
+		}
+	}
+
 	return (
 		<div className={cls.kanbanBoard}>
 			<DndContext
 				sensors={sensors}
-				// onDragStart={onDragStart}
+				onDragStart={onDragStart}
 				// onDragEnd={onDragEnd}
 				// onDragOver={onDragOver}
 			>
@@ -42,6 +60,8 @@ const KanbanBoard = memo((props: KanbanBoardProps) => {
 						<SortableContext items={columnsId}>
 							{statuses.map(stat => (
 								<Columns
+									projectId={projectId}
+									priorities={priorities}
 									key={stat._id}
 									stat={stat}
 									tasks={tasks.filter(task => task.status._id === stat._id)}

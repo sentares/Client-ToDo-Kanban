@@ -8,7 +8,7 @@
 		position: absolute;
 		top: 10%;
 		left: 10%;
-		background: #511a2c;
+		background: var(--calm-red);
 		color: #f29f80;
 		fill: none;
 		border: none;
@@ -21,7 +21,7 @@
 		cursor: pointer;
 		&:hover {
 			background: #f29f80;
-			color: #511a2c;
+			color: var(--calm-red);
 			scale: 1.18;
 		}
 	}
