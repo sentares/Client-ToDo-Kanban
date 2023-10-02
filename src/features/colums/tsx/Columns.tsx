@@ -1,12 +1,12 @@
 import { SortableContext, useSortable } from '@dnd-kit/sortable'
+import { IPriority } from 'entities/priorities'
 import { IStatus } from 'entities/status'
 import { ITask, TaskRequests } from 'entities/tasks'
 import { TasksCart } from 'features/tasks-cart'
-import cls from './Columns.module.scss'
 import { Plus } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import CreateTaskModal from 'shared/ui/modal/create-task/CreateTaskModal'
-import { IPriority } from 'entities/priorities'
+import cls from './Columns.module.scss'
 
 interface ColumnsProps {
 	projectId?: string
