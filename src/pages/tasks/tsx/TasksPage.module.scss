@@ -1,0 +1,28 @@
+.tasksPage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	position: relative;
+	.backBlock {
+		position: absolute;
+		top: 10%;
+		left: 10%;
+		background: #511a2c;
+		color: #f29f80;
+		fill: none;
+		border: none;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 8px;
+		transition: all 0.3s;
+		cursor: pointer;
+		&:hover {
+			background: #f29f80;
+			color: #511a2c;
+			scale: 1.18;
+		}
+	}
+}

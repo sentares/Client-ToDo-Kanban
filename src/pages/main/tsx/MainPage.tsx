@@ -19,7 +19,7 @@ const MainPage = () => {
 	useEffect(() => {
 		fetchUsers()
 		fetchStatuses()
-		fetchTasks()
+		fetchTasks('123')
 		fetchPriorities()
 		fetchProjects()
 	}, [])

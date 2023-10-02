@@ -7,9 +7,28 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background-color: black;
 	color: gray;
+	transition: all 0.3s;
 }
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
+}
+
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+::-webkit-scrollbar:horizontal {
+	height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #511a2c;
+	border-radius: 8px;
+}
+
+button {
+	cursor: pointer;
+	transition: 0.4s;
 }

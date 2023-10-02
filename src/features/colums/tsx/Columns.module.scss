@@ -1,0 +1,49 @@
+.column {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	background: #171c2c;
+	width: 200px;
+	border-radius: 10px;
+	padding: 4px;
+	.columnName {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: start;
+		background: #353f53;
+		border-radius: 10px 10px 0 0;
+		padding: 10px 0;
+		.title {
+			padding: 0px 10px;
+			color: #f49d81;
+			font-size: 20px;
+			font-weight: 700;
+		}
+	}
+	.footer {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		.addTask {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+			padding: 10px;
+			font-size: 18px;
+			background: #202b42;
+			color: #f49d81;
+			border: none;
+			border-radius: 8px;
+			font-weight: 700;
+			&:hover {
+				background: #f49d81;
+				color: #511a2c;
+			}
+			&:active {
+				scale: 0.98;
+			}
+		}
+	}
+}

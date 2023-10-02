@@ -2,7 +2,6 @@ import { useActions, useTypedSelector } from 'app/providers/store'
 import { useEffect } from 'react'
 import cls from './ProjectsPage.module.scss'
 import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 
 const ProjectsPage = () => {
 	const { projects, loading, error } = useTypedSelector(state => state.projects)
