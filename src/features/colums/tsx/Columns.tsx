@@ -1,5 +1,4 @@
 import { SortableContext, useSortable } from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
 import { IPriority } from 'entities/priorities'
 import { IStatus } from 'entities/status'
 import { ITask, TaskRequests } from 'entities/tasks'
@@ -33,14 +32,7 @@ const Columns = (props: ColumnsProps) => {
 		setIsOpenCreateModal(!isOpenCreateModal)
 	}
 
-	const {
-		setNodeRef,
-		attributes,
-		listeners,
-		transform,
-		transition,
-		isDragging,
-	} = useSortable({
+	const { setNodeRef } = useSortable({
 		id: stat._id,
 		data: {
 			type: 'Column',
@@ -48,20 +40,10 @@ const Columns = (props: ColumnsProps) => {
 		},
 	})
 
-	const style = {
-		transition,
-		transform: CSS.Transform.toString(transform),
-	}
-
 	const tasksIds = useMemo(() => {
 		return tasks.map(task => task._id)
 	}, [tasks])
 
-	if (isDragging) {
-		return (
-			<div ref={setNodeRef} style={style} className={cls.draggingColumn}></div>
-		)
-	}
 	return (
 		<>
 			{isOpenCreateModal && (
@@ -72,8 +54,8 @@ const Columns = (props: ColumnsProps) => {
 					stat={stat}
 				/>
 			)}
-			<div className={cls.column} ref={setNodeRef} style={style}>
-				<div className={cls.columnName} {...attributes} {...listeners}>
+			<div className={cls.column} ref={setNodeRef}>
+				<div className={cls.columnName}>
 					<div className={cls.title}>{stat.title}</div>
 				</div>
 				<div className={cls.tasksBlock}>
