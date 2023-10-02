@@ -1,4 +1,5 @@
 import { PriorityReducer } from 'entities/priorities'
+import { ProjectReducer } from 'entities/projects'
 import { StatusReducer } from 'entities/status'
 import { TasksReducer } from 'entities/tasks'
 import { UserReducer } from 'entities/user'
@@ -9,6 +10,7 @@ export const rootReducer = combineReducers({
 	statuses: StatusReducer,
 	tasks: TasksReducer,
 	priorities: PriorityReducer,
+	projects: ProjectReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

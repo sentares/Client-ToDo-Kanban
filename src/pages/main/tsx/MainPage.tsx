@@ -6,21 +6,29 @@ const MainPage = () => {
 	const { statuses } = useTypedSelector(state => state.statuses)
 	const { tasks } = useTypedSelector(state => state.tasks)
 	const { priorities } = useTypedSelector(state => state.priorities)
+	const { projects } = useTypedSelector(state => state.projects)
 
-	const { fetchUsers, fetchStatuses, fetchTasks, fetchPriorities } =
-		useActions()
+	const {
+		fetchUsers,
+		fetchStatuses,
+		fetchTasks,
+		fetchPriorities,
+		fetchProjects,
+	} = useActions()
 
 	useEffect(() => {
 		fetchUsers()
 		fetchStatuses()
 		fetchTasks()
 		fetchPriorities()
+		fetchProjects()
 	}, [])
 
 	console.log(users, 'users')
 	console.log(statuses, 'statuses')
 	console.log(tasks, 'tasks')
 	console.log(priorities, 'priorities')
+	console.log(projects, 'projects')
 
 	return (
 		<div style={{ display: 'flex', gap: '40px' }}>
