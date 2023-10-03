@@ -4,6 +4,7 @@ import { ITask } from 'entities/tasks'
 import { Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import cls from './Tasks.module.scss'
+import { useActions, useTypedSelector } from 'app/providers/store'
 
 interface TasksCartProps {
 	fetchedTask: ITask
@@ -11,6 +12,8 @@ interface TasksCartProps {
 
 const TasksCart = (props: TasksCartProps) => {
 	const { fetchedTask } = props
+	const { deleteTask } = useActions()
+	const { profile } = useTypedSelector(state => state.profile)
 
 	const [mouseHover, setMouseHover] = useState(false)
 
@@ -50,7 +53,10 @@ const TasksCart = (props: TasksCartProps) => {
 		>
 			{mouseHover && (
 				<div className={cls.header}>
-					<button className={cls.trashButton}>
+					<button
+						className={cls.trashButton}
+						onClick={deleteTask.bind(null, fetchedTask._id, profile.token)}
+					>
 						<Trash2 width={16} />
 					</button>
 				</div>

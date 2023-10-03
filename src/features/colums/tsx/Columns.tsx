@@ -1,13 +1,13 @@
 import { SortableContext, useSortable } from '@dnd-kit/sortable'
+import { useActions, useTypedSelector } from 'app/providers/store'
 import { IPriority } from 'entities/priorities'
 import { IStatus } from 'entities/status'
-import { ITask, TaskRequests } from 'entities/tasks'
+import { ITask } from 'entities/tasks'
 import { TasksCart } from 'features/tasks-cart'
 import { Plus } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import CreateTaskModal from 'shared/ui/modal/create-task/CreateTaskModal'
 import cls from './Columns.module.scss'
-import { useTypedSelector } from 'app/providers/store'
 
 interface ColumnsProps {
 	projectId?: string
@@ -21,11 +21,20 @@ const Columns = (props: ColumnsProps) => {
 	const [isOpenCreateModal, setIsOpenCreateModal] = useState(false)
 
 	const { profile } = useTypedSelector(state => state.profile)
-	const { createTask } = TaskRequests()
+
+	const { createTask } = useActions()
+	const { tasks: previousTasks } = useTypedSelector(state => state.tasks)
 
 	const handleCreateTask = (title: string, priorityId: string) => {
 		if (projectId && title.length) {
-			createTask(title, stat._id, projectId, priorityId, profile.token)
+			createTask(
+				previousTasks,
+				title,
+				stat._id,
+				projectId,
+				priorityId,
+				profile.token
+			)
 		} else {
 			console.log('ed')
 		}
