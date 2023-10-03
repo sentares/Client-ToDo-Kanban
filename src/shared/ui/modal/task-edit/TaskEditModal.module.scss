@@ -43,7 +43,7 @@
 			width: 100%;
 			display: flex;
 			align-items: center;
-			justify-content: start;
+			justify-content: space-between;
 			.infoBlock {
 				height: 100%;
 				width: 46%;
@@ -101,6 +101,37 @@
 						color: white;
 						border-radius: 8px;
 						border: 2px solid var(--main-bg);
+					}
+				}
+			}
+			.commentBlock {
+				width: 50%;
+				height: 100%;
+				border: 2px solid var(--main-bg);
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-direction: column;
+
+				h2 {
+					margin: 4px;
+				}
+
+				.textComm {
+					margin-top: 6px;
+					width: 90%;
+					padding: 10px;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					background: var(--def-blue);
+					border-radius: 10px;
+					.commInput {
+						width: 100%;
+						padding: 4px;
+						background: var(--def-blue);
+						color: white;
 					}
 				}
 			}

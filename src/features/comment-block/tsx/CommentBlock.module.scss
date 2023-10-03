@@ -1,0 +1,66 @@
+/* CommentBlock.module.scss */
+
+.commentBlock {
+	width: 97%;
+	max-height: auto;
+	overflow-y: auto;
+	padding-right: 4px;
+}
+
+.comment {
+	background-color: var(--def-blue);
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.textBlock {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 5px;
+}
+.textComm {
+	display: flex;
+	align-items: start;
+	justify-content: start;
+	padding-left: 6px;
+	padding-top: 4px;
+}
+.resp {
+	background: none;
+	color: var(--agr-red);
+}
+
+.author {
+	font-weight: bold;
+	color: var(--font-sceen);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.date {
+	font-size: 12px;
+}
+
+.subcomments {
+	margin-top: 10px;
+	padding-left: 20px;
+	border-top: 1px solid var(--agr-red);
+}
+
+.subcomment {
+	background-color: var(--light-blue);
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+
+.subcommentAuthor {
+	font-weight: bold;
+	color: var(--font-sceen);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

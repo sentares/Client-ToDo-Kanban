@@ -1,15 +1,24 @@
-import { Copy, X } from 'lucide-react'
-import cls from './TaskEditModal.module.scss'
+import { IComment } from 'entities/comments'
 import { ITask } from 'entities/tasks'
-import { toDate } from 'shared/lib/toDate'
+import { CommentBlock } from 'features/comment-block'
+import { Copy, SendHorizonal, X } from 'lucide-react'
 import { useState } from 'react'
+import { toDate } from 'shared/lib/toDate'
+import cls from './TaskEditModal.module.scss'
+import { copyToClipboard } from 'shared/lib/copyText'
 
 interface ITaskEditModalProps {
 	fetchedTask: ITask
+	comments: IComment[]
+	ruleModal: () => {}
+	fetchCommentLoading: boolean
 }
 
 const TaskEditModal = (prop: ITaskEditModalProps) => {
-	const { fetchedTask } = prop
+	const { fetchedTask, comments, ruleModal, fetchCommentLoading } = prop
+
+	const [newComm, setNewComm] = useState('')
+	const [clickedCommId, setClickedCommId] = useState('')
 
 	const [areaDescription, setAreaRedscription] = useState(
 		fetchedTask.description
@@ -27,10 +36,15 @@ const TaskEditModal = (prop: ITaskEditModalProps) => {
 				return { backgroundColor: 'white' }
 		}
 	}
+
+	const handleClickToResponse = (toRespId: string) => {
+		setClickedCommId(toRespId)
+	}
+	const handlePostComm = () => {}
 	return (
 		<div className={cls.taskEditModal}>
 			<div className={cls.content}>
-				<button className={cls.close}>
+				<button className={cls.close} onClick={ruleModal}>
 					<X />
 				</button>
 				<div className={cls.optionBlock}>
@@ -48,7 +62,7 @@ const TaskEditModal = (prop: ITaskEditModalProps) => {
 							ID: {fetchedTask._id}
 							<button
 								className={cls.copyButton}
-								// onClick={deleteTask.bind(null, fetchedTask._id, profile.token)}
+								onClick={copyToClipboard.bind(null, fetchedTask._id)}
 							>
 								<Copy width={16} />
 							</button>
@@ -67,7 +81,30 @@ const TaskEditModal = (prop: ITaskEditModalProps) => {
 							/>
 						</div>
 					</div>
-					<div className={cls.commentBlock}></div>
+					<div className={cls.commentBlock}>
+						<h2>Комментарии</h2>
+						{fetchCommentLoading ? (
+							<div>Loading...</div>
+						) : (
+							<CommentBlock
+								comments={comments}
+								handleClickToResponse={handleClickToResponse}
+							/>
+						)}
+						<div className={cls.textComm}>
+							<input
+								type='text'
+								placeholder='Напишите комментарии'
+								className={cls.commInput}
+								value={newComm}
+								onChange={e => setNewComm(e.target.value)}
+							/>
+							<SendHorizonal
+								style={newComm.length ? { color: 'green' } : {}}
+								onClick={handlePostComm}
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

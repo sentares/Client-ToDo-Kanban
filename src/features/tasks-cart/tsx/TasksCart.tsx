@@ -7,6 +7,7 @@ import { useState } from 'react'
 import cls from './Tasks.module.scss'
 import { toDate } from 'shared/lib/toDate'
 import TaskEditModal from 'shared/ui/modal/task-edit/TaskEditModal'
+import { copyToClipboard } from 'shared/lib/copyText'
 
 interface TasksCartProps {
 	fetchedTask: ITask
@@ -14,17 +15,21 @@ interface TasksCartProps {
 
 const TasksCart = (props: TasksCartProps) => {
 	const { fetchedTask } = props
-	const { deleteTask } = useActions()
+	const { deleteTask, fetchComments } = useActions()
 	const { profile } = useTypedSelector(state => state.profile)
 	const { updateLoading, deleteLoading } = useTypedSelector(
 		state => state.tasks
+	)
+	const { comments, fetchLoading: fetchCommentLoading } = useTypedSelector(
+		state => state.comments
 	)
 
 	const [mouseHover, setMouseHover] = useState(false)
 	const [isOpenModal, setIsOpenModal] = useState(false)
 
-	const ruleModal = () => {
+	const ruleModal = async () => {
 		setIsOpenModal(!isOpenModal)
+		await fetchComments(fetchedTask._id)
 	}
 
 	const {
@@ -40,7 +45,7 @@ const TasksCart = (props: TasksCartProps) => {
 			type: 'Task',
 			fetchedTask,
 		},
-		disabled: updateLoading || deleteLoading,
+		disabled: updateLoading || deleteLoading || isOpenModal,
 	})
 
 	const style = {
@@ -76,7 +81,12 @@ const TasksCart = (props: TasksCartProps) => {
 			{...listeners}
 		>
 			{isOpenModal && fetchedTask && (
-				<TaskEditModal fetchedTask={fetchedTask} />
+				<TaskEditModal
+					fetchedTask={fetchedTask}
+					comments={comments}
+					ruleModal={ruleModal}
+					fetchCommentLoading={fetchCommentLoading}
+				/>
 			)}
 			<div className={cls.contentBlock}>
 				<div className={cls.date}>от: {toDate(fetchedTask.publishedAt)}</div>
@@ -97,7 +107,7 @@ const TasksCart = (props: TasksCartProps) => {
 						</button>
 						<button
 							className={cls.copyButton}
-							// onClick={deleteTask.bind(null, fetchedTask._id, profile.token)}
+							onClick={copyToClipboard.bind(null, fetchedTask._id)}
 						>
 							<Copy width={16} />
 						</button>

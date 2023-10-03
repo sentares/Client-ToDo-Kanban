@@ -1,3 +1,4 @@
+import { CommentReducer } from 'entities/comments'
 import { PriorityReducer } from 'entities/priorities'
 import { ProfileReducer } from 'entities/profile'
 import { ProjectReducer } from 'entities/projects'
@@ -13,6 +14,7 @@ export const rootReducer = combineReducers({
 	priorities: PriorityReducer,
 	projects: ProjectReducer,
 	profile: ProfileReducer,
+	comments: CommentReducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
