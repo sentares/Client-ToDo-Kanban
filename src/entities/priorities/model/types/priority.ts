@@ -18,7 +18,7 @@ interface FetchPrioritiesAction {
 
 interface FetchPrioritiesSuccessAction {
 	type: PriorityActionsTypes.FETCH_PRIORITY_SUCCESS
-	payload: any[]
+	payload: IPriority[]
 }
 
 interface FetchPrioritiesErrorAction {

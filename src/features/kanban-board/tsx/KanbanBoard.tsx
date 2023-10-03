@@ -25,9 +25,10 @@ const KanbanBoard = memo((props: KanbanBoardProps) => {
 
 	const { statuses } = useTypedSelector(state => state.statuses)
 	const { priorities } = useTypedSelector(state => state.priorities)
+	const { profile } = useTypedSelector(state => state.profile)
 
 	const { onDragStart, onDragEnd, onDragOver, activeTask, tasks } =
-		KanbanModule(fetchedTasks)
+		KanbanModule(fetchedTasks, profile.token)
 
 	const columnsId = useMemo(() => statuses.map(col => col._id), [statuses])
 

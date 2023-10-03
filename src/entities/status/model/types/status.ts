@@ -18,7 +18,7 @@ interface FetchStatusesAction {
 
 interface FetchStatusesSuccessAction {
 	type: StatusActionsTypes.FETCH_STATUSES_SUCCESS
-	payload: any[]
+	payload: IStatus[]
 }
 
 interface FetchStatusesErrorAction {

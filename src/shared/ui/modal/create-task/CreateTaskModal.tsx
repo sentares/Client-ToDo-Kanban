@@ -1,8 +1,8 @@
 import { IPriority } from 'entities/priorities'
+import { IStatus } from 'entities/status'
 import { Plus, X } from 'lucide-react'
 import { useState } from 'react'
 import cls from './CreateTaskModal.module.scss'
-import { IStatus } from 'entities/status'
 
 interface CreateTaskModalProps {
 	onCloseModal: () => void
@@ -22,7 +22,10 @@ const CreateTaskModal = (props: CreateTaskModalProps) => {
 
 	return (
 		<div className={cls.createTaskModal}>
-			<div className={cls.content}>
+			<div
+				className={cls.content}
+				style={createLoading ? { opacity: 0.8 } : {}}
+			>
 				<button className={cls.close} onClick={onCloseModal}>
 					<X />
 				</button>

@@ -21,7 +21,9 @@ const Columns = (props: ColumnsProps) => {
 	const [isOpenCreateModal, setIsOpenCreateModal] = useState(false)
 
 	const { profile } = useTypedSelector(state => state.profile)
-	const { createLoading } = useTypedSelector(state => state.tasks)
+	const { createLoading, updateLoading } = useTypedSelector(
+		state => state.tasks
+	)
 
 	const { createTask } = useActions()
 
@@ -43,6 +45,7 @@ const Columns = (props: ColumnsProps) => {
 			type: 'Column',
 			stat,
 		},
+		disabled: updateLoading,
 	})
 
 	const tasksIds = useMemo(() => {

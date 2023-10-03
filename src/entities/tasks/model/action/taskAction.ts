@@ -68,6 +68,37 @@ export const createTask = (
 	}
 }
 
+export const updateTask = (taskId: string, statusId: string, token: string) => {
+	return async (dispatch: Dispatch<TasksActions>) => {
+		try {
+			dispatch({ type: TaskActionsType.UPDATE_TASK })
+
+			const config: AxiosRequestConfig = {
+				headers: {
+					Authorization: `${token}`,
+				},
+			}
+			const response = await axios.patch(
+				`${URL}/task/${taskId}`,
+				{ statusId: statusId },
+				config
+			)
+
+			dispatch({
+				type: TaskActionsType.UPDATE_TASK_SUCCESS,
+				payload: response.data,
+			})
+		} catch (e) {
+			console.log(e)
+			dispatch({
+				type: TaskActionsType.DELETE_TASK_ERROR,
+				payload: 'Произошла ошибка при изменении задачи',
+			})
+			toast.success('Произошла ошибка при изменении задачи')
+		}
+	}
+}
+
 export const deleteTask = (taskId: string, token: string) => {
 	return async (dispatch: Dispatch<TasksActions>) => {
 		try {

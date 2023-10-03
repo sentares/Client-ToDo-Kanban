@@ -5,6 +5,7 @@ const initialState: TaskState = {
 	fetchLoading: false,
 	createLoading: false,
 	deleteLoading: false,
+	updateLoading: false,
 	error: null,
 }
 
@@ -58,6 +59,24 @@ export const TasksReducer = (
 			return {
 				...state,
 				deleteLoading: false,
+				error: action.payload,
+			}
+
+		//UPDATE
+		case TaskActionsType.UPDATE_TASK:
+			return { ...state, updateLoading: true }
+		case TaskActionsType.UPDATE_TASK_SUCCESS:
+			return {
+				...state,
+				updateLoading: false,
+				// tasks: state.tasks.map(task =>
+				// 	task._id === action.payload._id ? action.payload : task
+				// ),
+			}
+		case TaskActionsType.UPDATE_TASK_ERROR:
+			return {
+				...state,
+				updateLoading: false,
 				error: action.payload,
 			}
 

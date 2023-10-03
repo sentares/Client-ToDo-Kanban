@@ -1,12 +1,14 @@
 import { DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
+import { useActions } from 'app/providers/store'
 import { ITask } from 'entities/tasks'
 import { useMemo, useState } from 'react'
 
-const KanbanModule = (fetchedTasks: ITask[]) => {
+const KanbanModule = (fetchedTasks: ITask[], token: string) => {
 	const [activeTask, setActiveTask] = useState<ITask | null>(null)
 	const [tasks, setTasks] = useState<ITask[]>(fetchedTasks)
 
+	const { updateTask } = useActions()
 	useMemo(() => {
 		setTasks(fetchedTasks)
 	}, [fetchedTasks])
@@ -41,29 +43,30 @@ const KanbanModule = (fetchedTasks: ITask[]) => {
 		const isActiveATask = active.data.current?.type === 'Task'
 		const isOverAColumn = over.data.current?.type === 'Column'
 
-		setTasks(tasks => {
-			const activeIndex = tasks.findIndex(t => t._id === activeId)
-			const overIndex = tasks.findIndex(t => t._id === overId)
+		setTasks(prevTasks => {
+			const newTasks = [...prevTasks]
+			const activeIndex = newTasks.findIndex(t => t._id === activeId)
+			const overIndex = newTasks.findIndex(t => t._id === overId)
 
 			if (isActiveATask) {
-				const activeStatusId = tasks[activeIndex].status._id
-				const overStatusId = tasks[overIndex]?.status._id
+				const activeStatusId = newTasks[activeIndex].status._id
+				const overStatusId = newTasks[overIndex]?.status._id
 
 				if (isOverAColumn) {
-					// console.log(overId)
-
-					tasks[activeIndex].status._id = overId.toString()
+					updateTask(activeId.toString(), overId.toString(), token)
+					newTasks[activeIndex].status._id = overId.toString()
 				} else if (activeStatusId !== overStatusId) {
-					tasks[activeIndex].status._id = overStatusId
-					return arrayMove(tasks, activeIndex, overIndex - 1)
+					newTasks[activeIndex].status._id = overStatusId
+					return arrayMove(newTasks, activeIndex, overIndex - 1)
 				}
 
-				return arrayMove(tasks, activeIndex, overIndex)
+				return arrayMove(newTasks, activeIndex, overIndex)
 			}
 
-			return tasks
+			return newTasks
 		})
 	}
+
 	return { onDragStart, onDragEnd, onDragOver, activeTask, tasks }
 }
 
