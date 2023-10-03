@@ -70,7 +70,13 @@ export const createTask = (
 	}
 }
 
-export const updateTask = (taskId: string, statusId: string, token: string) => {
+export const updateTask = (
+	taskId: string,
+	statusId: string,
+	token: string,
+	title?: string,
+	description?: string
+) => {
 	return async (dispatch: Dispatch<TasksActions>) => {
 		try {
 			dispatch({ type: TaskActionsType.UPDATE_TASK })
@@ -82,7 +88,7 @@ export const updateTask = (taskId: string, statusId: string, token: string) => {
 			}
 			const response = await axios.patch(
 				`${URL}/task/${taskId}`,
-				{ statusId: statusId },
+				{ statusId: statusId, title, description },
 				config
 			)
 

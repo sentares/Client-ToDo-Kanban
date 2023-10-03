@@ -1,7 +1,7 @@
 import { IComment } from 'entities/comments'
 import { ITask } from 'entities/tasks'
 import { CommentBlock } from 'features/comment-block'
-import { Copy, SendHorizonal, X } from 'lucide-react'
+import { Copy, Pen, SendHorizonal, X } from 'lucide-react'
 import { useState } from 'react'
 import { toDate } from 'shared/lib/toDate'
 import cls from './TaskEditModal.module.scss'
@@ -17,17 +17,20 @@ interface ITaskEditModalProps {
 
 const TaskEditModal = (prop: ITaskEditModalProps) => {
 	const { fetchedTask, comments, ruleModal, fetchCommentLoading } = prop
-	const { createComment } = useActions()
+	const { createComment, updateTask } = useActions()
 
 	const { profile } = useTypedSelector(state => state.profile)
 
 	const [newComm, setNewComm] = useState('')
 	const [clickedComm, setClickedComm] = useState<IComment | null>(null)
 	const [clickedId, setClickedId] = useState('')
+	const [editMode, setEditMode] = useState(false)
+	const [isModified, setIsModified] = useState(false)
 
 	const [areaDescription, setAreaRedscription] = useState(
 		fetchedTask.description
 	)
+	const [title, setTitle] = useState(fetchedTask.title)
 
 	const getPriorityBg = (priority: string) => {
 		switch (priority) {
@@ -42,6 +45,16 @@ const TaskEditModal = (prop: ITaskEditModalProps) => {
 		}
 	}
 
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setTitle(e.target.value)
+		setIsModified(true)
+	}
+
+	const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setAreaRedscription(e.target.value)
+		setIsModified(true)
+	}
+
 	const handleClickToResponse = (toRespComm: IComment) => {
 		setClickedComm(toRespComm)
 		setClickedId(toRespComm._id)
@@ -52,43 +65,59 @@ const TaskEditModal = (prop: ITaskEditModalProps) => {
 		setNewComm('')
 	}
 
+	const handleSave = () => {
+		updateTask(fetchedTask._id, '', profile.token, title, areaDescription)
+		setIsModified(false)
+	}
+
 	return (
 		<div className={cls.taskEditModal}>
 			<div className={cls.content}>
 				<button className={cls.close} onClick={ruleModal}>
 					<X />
 				</button>
+				<button
+					className={cls.edit}
+					onClick={setEditMode.bind(null, !editMode)}
+					style={editMode ? { background: 'var(--font-sceen)' } : {}}
+				>
+					<Pen />
+				</button>
 				<div className={cls.optionBlock}>
 					<div className={cls.infoBlock}>
-						<div className={cls.nameBlock}>
-							<h1>{fetchedTask.title}</h1>
-							<div
-								className={cls.priority}
-								style={getPriorityBg(fetchedTask.priority.title)}
-							>
-								{fetchedTask.priority.title}
+						<div className={cls.info}>
+							<div className={cls.nameBlock}>
+								<input
+									value={title}
+									onChange={handleInputChange}
+									disabled={!editMode}
+								/>
+								<div
+									className={cls.priority}
+									style={getPriorityBg(fetchedTask.priority.title)}
+								>
+									{fetchedTask.priority.title}
+								</div>
 							</div>
-						</div>
-						<div className={cls.idBlock}>
-							ID: {fetchedTask._id}
-							<button
-								className={cls.copyButton}
-								onClick={copyToClipboard.bind(null, fetchedTask._id)}
-							>
-								<Copy width={16} />
-							</button>
-						</div>
-						<div className={cls.date}>
-							от: {toDate(fetchedTask.publishedAt)}
-						</div>
-						<div>
-							<div>Участники:</div>
+							<div className={cls.idBlock}>
+								ID: {fetchedTask._id}
+								<button
+									className={cls.copyButton}
+									onClick={copyToClipboard.bind(null, fetchedTask._id)}
+								>
+									<Copy width={16} />
+								</button>
+							</div>
+							<div className={cls.date}>
+								от: {toDate(fetchedTask.publishedAt)}
+							</div>
 						</div>
 						<div className={cls.textBlock}>
 							<textarea
 								className={cls.description}
 								value={areaDescription}
-								onChange={e => setAreaRedscription(e.target.value)}
+								onChange={handleTextAreaChange}
+								disabled={!editMode}
 							/>
 						</div>
 					</div>
@@ -131,6 +160,11 @@ const TaskEditModal = (prop: ITaskEditModalProps) => {
 						</div>
 					</div>
 				</div>
+				{isModified && (
+					<button className={cls.saveButton} onClick={handleSave}>
+						Сохранить
+					</button>
+				)}
 			</div>
 		</div>
 	)
