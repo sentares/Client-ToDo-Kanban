@@ -21,6 +21,7 @@ const Columns = (props: ColumnsProps) => {
 	const [isOpenCreateModal, setIsOpenCreateModal] = useState(false)
 
 	const { profile } = useTypedSelector(state => state.profile)
+	const { createLoading } = useTypedSelector(state => state.tasks)
 
 	const { createTask } = useActions()
 
@@ -56,6 +57,7 @@ const Columns = (props: ColumnsProps) => {
 					handleCreateTask={handleCreateTask}
 					priorities={priorities}
 					stat={stat}
+					createLoading={createLoading}
 				/>
 			)}
 			<div className={cls.column} ref={setNodeRef}>

@@ -20,37 +20,33 @@ export enum TaskActionsType {
 	DELETE_TASK_ERROR = 'DELETE_TASK_ERROR',
 }
 
-//fetch
+//FETCH
 interface FetchTasksAction {
 	type: TaskActionsType.FETCH_TASKS
 }
-
 interface FetchTasksSuccessAction {
 	type: TaskActionsType.FETCH_TASKS_SUCCESS
 	payload: ITask[]
 }
-
 interface FetchTasksErrorAction {
 	type: TaskActionsType.FETCH_TASKS_ERROR
 	payload: string
 }
 
-//create
+//CREATE
 interface CreateTasksAction {
 	type: TaskActionsType.CREATE_TASKS
 }
-
 interface CeateTasksSuccessAction {
 	type: TaskActionsType.CREATE_TASKS_SUCCESS
 	payload: ITask
 }
-
 interface CreateTasksErrorAction {
 	type: TaskActionsType.CREATE_TASKS_ERROR
 	payload: string
 }
 
-//delete
+//DELETE
 interface DeleteTaskAction {
 	type: TaskActionsType.DELETE_TASK
 }

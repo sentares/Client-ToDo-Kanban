@@ -13,9 +13,9 @@ export const TasksReducer = (
 	action: TasksActions
 ): TaskState => {
 	switch (action.type) {
+		//FETCH
 		case TaskActionsType.FETCH_TASKS:
 			return { ...state, fetchLoading: true }
-
 		case TaskActionsType.FETCH_TASKS_SUCCESS:
 			return {
 				...state,
@@ -29,6 +29,7 @@ export const TasksReducer = (
 				error: action.payload,
 			}
 
+		//CREATE
 		case TaskActionsType.CREATE_TASKS:
 			return { ...state, createLoading: true }
 		case TaskActionsType.CREATE_TASKS_SUCCESS:
@@ -41,6 +42,22 @@ export const TasksReducer = (
 			return {
 				...state,
 				createLoading: false,
+				error: action.payload,
+			}
+
+		//DELETE
+		case TaskActionsType.DELETE_TASK:
+			return { ...state, deleteLoading: true }
+		case TaskActionsType.DELETE_TASK_SUCCESS:
+			return {
+				...state,
+				deleteLoading: false,
+				tasks: state.tasks.filter(task => task._id !== action.payload),
+			}
+		case TaskActionsType.DELETE_TASK_ERROR:
+			return {
+				...state,
+				deleteLoading: false,
 				error: action.payload,
 			}
 

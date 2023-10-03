@@ -25,8 +25,6 @@ const TasksPage = () => {
 		}
 	}, [projectId])
 
-	console.log(tasks)
-
 	return (
 		<div className={cls.tasksPage}>
 			<button className={cls.backBlock} onClick={navigateToProjects}>

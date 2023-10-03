@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { ITask } from 'entities/tasks/interface/Itask'
+import toast from 'react-hot-toast'
 import { Dispatch } from 'redux'
 import { URL } from 'shared/api/api'
 import { TaskActionsType, TasksActions } from '../types/task'
@@ -55,13 +55,15 @@ export const createTask = (
 				type: TaskActionsType.CREATE_TASKS_SUCCESS,
 				payload: response.data,
 			})
+			toast.success('Задача создана')
 		} catch (error) {
 			console.log(error)
 
 			dispatch({
 				type: TaskActionsType.CREATE_TASKS_ERROR,
-				payload: 'Произошла ошибка при загрузке задач',
+				payload: 'Произошла ошибка при создании задачи',
 			})
+			toast.error('Произошла ошибка при создании задачи')
 		}
 	}
 }
@@ -75,12 +77,19 @@ export const deleteTask = (taskId: string, token: string) => {
 					Authorization: `${token}`,
 				},
 			}
-			const response = await axios.delete(`${URL}/task/${taskId}`, config)
+			await axios.delete(`${URL}/task/${taskId}`, config)
+
+			dispatch({
+				type: TaskActionsType.DELETE_TASK_SUCCESS,
+				payload: taskId,
+			})
+			toast.success('Задача удалена')
 		} catch (e) {
 			dispatch({
-				type: TaskActionsType.FETCH_TASKS_ERROR,
-				payload: 'Произошла ошибка при загрузке задач',
+				type: TaskActionsType.DELETE_TASK_ERROR,
+				payload: 'Произошла ошибка при удалении задачи',
 			})
+			toast.success('Произошла ошибка при удалении задачи')
 		}
 	}
 }
