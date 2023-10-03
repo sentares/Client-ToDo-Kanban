@@ -14,7 +14,9 @@ const TasksCart = (props: TasksCartProps) => {
 	const { fetchedTask } = props
 	const { deleteTask } = useActions()
 	const { profile } = useTypedSelector(state => state.profile)
-	const { updateLoading } = useTypedSelector(state => state.tasks)
+	const { updateLoading, deleteLoading } = useTypedSelector(
+		state => state.tasks
+	)
 
 	const [mouseHover, setMouseHover] = useState(false)
 
@@ -31,7 +33,7 @@ const TasksCart = (props: TasksCartProps) => {
 			type: 'Task',
 			fetchedTask,
 		},
-		disabled: updateLoading,
+		disabled: updateLoading || deleteLoading,
 	})
 
 	const style = {
@@ -49,7 +51,7 @@ const TasksCart = (props: TasksCartProps) => {
 			onMouseEnter={() => setMouseHover(true)}
 			onMouseLeave={() => setMouseHover(false)}
 			ref={setNodeRef}
-			style={style}
+			style={updateLoading || deleteLoading ? { opacity: 0.4 } : style}
 			{...attributes}
 			{...listeners}
 		>

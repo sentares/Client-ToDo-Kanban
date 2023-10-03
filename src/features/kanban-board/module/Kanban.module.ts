@@ -2,13 +2,21 @@ import { DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 import { useActions } from 'app/providers/store'
 import { ITask } from 'entities/tasks'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const KanbanModule = (fetchedTasks: ITask[], token: string) => {
 	const [activeTask, setActiveTask] = useState<ITask | null>(null)
 	const [tasks, setTasks] = useState<ITask[]>(fetchedTasks)
+	const [overColumnId, setOverColumnId] = useState<string | null>(null)
 
 	const { updateTask } = useActions()
+
+	useEffect(() => {
+		if (overColumnId && activeTask) {
+			updateTask(activeTask._id.toString(), overColumnId, token)
+		}
+	}, [overColumnId, activeTask, token])
+
 	useMemo(() => {
 		setTasks(fetchedTasks)
 	}, [fetchedTasks])
@@ -53,7 +61,7 @@ const KanbanModule = (fetchedTasks: ITask[], token: string) => {
 				const overStatusId = newTasks[overIndex]?.status._id
 
 				if (isOverAColumn) {
-					updateTask(activeId.toString(), overId.toString(), token)
+					setOverColumnId(overId.toString())
 					newTasks[activeIndex].status._id = overId.toString()
 				} else if (activeStatusId !== overStatusId) {
 					newTasks[activeIndex].status._id = overStatusId
