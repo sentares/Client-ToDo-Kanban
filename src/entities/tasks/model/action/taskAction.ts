@@ -24,7 +24,6 @@ export const fetchTasks = (projectId: string) => {
 }
 
 export const createTask = (
-	previousTasks: ITask[],
 	title: string,
 	statusId: string,
 	projectId: string,
@@ -52,20 +51,15 @@ export const createTask = (
 				config
 			)
 
-			if (response.data) {
-				dispatch({
-					type: TaskActionsType.FETCH_TASKS_SUCCESS,
-					payload: [response.data, ...previousTasks],
-				})
-			} else {
-				dispatch({
-					type: TaskActionsType.FETCH_TASKS_ERROR,
-					payload: 'Пустой ответ от сервера',
-				})
-			}
-		} catch (error) {
 			dispatch({
-				type: TaskActionsType.FETCH_TASKS_ERROR,
+				type: TaskActionsType.CREATE_TASKS_SUCCESS,
+				payload: response.data,
+			})
+		} catch (error) {
+			console.log(error)
+
+			dispatch({
+				type: TaskActionsType.CREATE_TASKS_ERROR,
 				payload: 'Произошла ошибка при загрузке задач',
 			})
 		}
@@ -75,25 +69,13 @@ export const createTask = (
 export const deleteTask = (taskId: string, token: string) => {
 	return async (dispatch: Dispatch<TasksActions>) => {
 		try {
+			dispatch({ type: TaskActionsType.DELETE_TASK })
 			const config: AxiosRequestConfig = {
 				headers: {
 					Authorization: `${token}`,
 				},
 			}
-			// dispatch({ type: TaskActionsType.FETCH_TASKS })
 			const response = await axios.delete(`${URL}/task/${taskId}`, config)
-
-			// if (response.data) {
-			// 	dispatch({
-			// 		type: TaskActionsType.FETCH_TASKS_SUCCESS,
-			// 		payload: [response.data, ...previousTasks],
-			// 	})
-			// } else {
-			// 	dispatch({
-			// 		type: TaskActionsType.FETCH_TASKS_ERROR,
-			// 		payload: 'Пустой ответ от сервера',
-			// 	})
-			// }
 		} catch (e) {
 			dispatch({
 				type: TaskActionsType.FETCH_TASKS_ERROR,

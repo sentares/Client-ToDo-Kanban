@@ -2,7 +2,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { ITask } from 'entities/tasks'
 import { Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import cls from './Tasks.module.scss'
 import { useActions, useTypedSelector } from 'app/providers/store'
 

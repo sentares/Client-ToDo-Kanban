@@ -13,7 +13,7 @@ const TasksPage = () => {
 	const projectId = id
 
 	const { fetchTasks } = useActions()
-	const { tasks, loading, error } = useTypedSelector(state => state.tasks)
+	const { tasks, fetchLoading, error } = useTypedSelector(state => state.tasks)
 
 	function navigateToProjects() {
 		navigate('/projects')
@@ -25,14 +25,16 @@ const TasksPage = () => {
 		}
 	}, [projectId])
 
+	console.log(tasks)
+
 	return (
 		<div className={cls.tasksPage}>
 			<button className={cls.backBlock} onClick={navigateToProjects}>
 				<ArrowLeft className={cls.Icon} />
 			</button>
-			{loading && <h1>Loading...</h1>}
+			{fetchLoading && <h1>Loading...</h1>}
 			{error && <h1>Что то не так</h1>}
-			{tasks && !loading && projectId && (
+			{tasks && !fetchLoading && projectId && (
 				<KanbanBoard fetchedTasks={tasks} projectId={projectId} />
 			)}
 		</div>

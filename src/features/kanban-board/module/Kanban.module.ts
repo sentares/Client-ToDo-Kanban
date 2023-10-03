@@ -1,11 +1,15 @@
 import { DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 import { ITask } from 'entities/tasks'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
-const KanbanModule = (fetchedtasks: ITask[]) => {
+const KanbanModule = (fetchedTasks: ITask[]) => {
 	const [activeTask, setActiveTask] = useState<ITask | null>(null)
-	const [tasks, setTasks] = useState<ITask[]>(fetchedtasks)
+	const [tasks, setTasks] = useState<ITask[]>(fetchedTasks)
+
+	useMemo(() => {
+		setTasks(fetchedTasks)
+	}, [fetchedTasks])
 
 	function onDragStart(event: DragStartEvent) {
 		if (event.active.data.current?.type === 'Task') {

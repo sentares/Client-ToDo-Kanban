@@ -23,18 +23,10 @@ const Columns = (props: ColumnsProps) => {
 	const { profile } = useTypedSelector(state => state.profile)
 
 	const { createTask } = useActions()
-	const { tasks: previousTasks } = useTypedSelector(state => state.tasks)
 
 	const handleCreateTask = (title: string, priorityId: string) => {
 		if (projectId && title.length) {
-			createTask(
-				previousTasks,
-				title,
-				stat._id,
-				projectId,
-				priorityId,
-				profile.token
-			)
+			createTask(title, stat._id, projectId, priorityId, profile.token)
 		} else {
 			console.log('ed')
 		}
