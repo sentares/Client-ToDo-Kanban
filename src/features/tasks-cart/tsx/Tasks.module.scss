@@ -1,36 +1,80 @@
 .taskCart {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
+	justify-content: space-between;
 	border-radius: 8px;
 	width: 100%;
 	background: var(--def-blue);
-	height: 120px;
+	height: 140px;
 	border: 1px solid var(--def-blue);
+	cursor: grabbing;
 	&:hover {
 		border: 1px solid var(--font-sceen);
 	}
-	.header {
-		width: 100%;
+	.contentBlock {
+		width: 90%;
+		display: flex;
+		align-items: start;
+		justify-content: space-between;
+		flex-direction: column;
+		padding: 4px;
+		.date {
+			width: 100%;
+			align-items: center;
+			justify-content: start;
+			padding-top: 6px;
+			font-size: 12px;
+			color: var(--font-sceen);
+		}
+		.content {
+			font-weight: 600;
+			color: white;
+		}
+		.description {
+			font-size: 14px;
+		}
+
+		.priority {
+			width: 60%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 4px;
+			border-radius: 8px;
+			color: white;
+		}
+	}
+	.sideBlock {
+		width: 10%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		position: relative;
+		padding: 8px;
+		gap: 8px;
+		.editButton {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--font-sceen);
+			color: white;
+			border-radius: 8px;
+		}
 		.trashButton {
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			background: var(--agr-red);
-			position: absolute;
-			top: 4px;
-			right: 4px;
 			color: white;
 			border-radius: 8px;
 		}
-	}
-	.content {
-		margin-top: 30px;
+		.copyButton {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--blue-bg);
+			color: white;
+			border-radius: 8px;
+		}
 	}
 }
 

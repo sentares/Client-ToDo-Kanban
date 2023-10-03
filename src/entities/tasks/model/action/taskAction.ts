@@ -25,6 +25,7 @@ export const fetchTasks = (projectId: string) => {
 
 export const createTask = (
 	title: string,
+	description: string,
 	statusId: string,
 	projectId: string,
 	priorityId: string,
@@ -32,6 +33,8 @@ export const createTask = (
 ) => {
 	return async (dispatch: Dispatch<TasksActions>) => {
 		try {
+			console.log(description, 'createTask')
+
 			dispatch({ type: TaskActionsType.CREATE_TASKS })
 
 			const config: AxiosRequestConfig = {
@@ -44,6 +47,7 @@ export const createTask = (
 				`${URL}/task`,
 				{
 					title,
+					description,
 					statusId,
 					priorityId,
 					projectId,

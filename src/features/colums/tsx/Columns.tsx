@@ -27,9 +27,20 @@ const Columns = (props: ColumnsProps) => {
 
 	const { createTask } = useActions()
 
-	const handleCreateTask = (title: string, priorityId: string) => {
+	const handleCreateTask = (
+		title: string,
+		description: string,
+		priorityId: string
+	) => {
 		if (projectId && title.length) {
-			createTask(title, stat._id, projectId, priorityId, profile.token)
+			createTask(
+				title,
+				description,
+				stat._id,
+				projectId,
+				priorityId,
+				profile.token
+			)
 		} else {
 			console.log('ed')
 		}

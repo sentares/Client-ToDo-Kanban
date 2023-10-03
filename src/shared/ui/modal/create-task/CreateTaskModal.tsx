@@ -6,7 +6,7 @@ import cls from './CreateTaskModal.module.scss'
 
 interface CreateTaskModalProps {
 	onCloseModal: () => void
-	handleCreateTask: (arg0: string, arg1: string) => void
+	handleCreateTask: (arg0: string, arg1: string, arg2: string) => void
 	priorities: IPriority[]
 	stat: IStatus
 	createLoading: boolean
@@ -16,6 +16,7 @@ const CreateTaskModal = (props: CreateTaskModalProps) => {
 	const { onCloseModal, handleCreateTask, priorities, stat, createLoading } =
 		props
 	const [title, setTitle] = useState('')
+	const [description, setDescription] = useState('')
 	const [activePriority, setActivePriority] = useState<string>(
 		priorities[0]._id
 	)
@@ -39,10 +40,18 @@ const CreateTaskModal = (props: CreateTaskModalProps) => {
 							<p>{stat.title}</p>
 							<input
 								type='text'
-								placeholder='Введите описание задачи'
+								placeholder='Введите название задачи'
 								className={cls.inputTitle}
 								value={title}
 								onChange={e => setTitle(e.target.value)}
+								disabled={createLoading}
+							/>
+
+							<textarea
+								placeholder='Введите описание задачи'
+								className={cls.inputTitle}
+								value={description}
+								onChange={e => setDescription(e.target.value)}
 								disabled={createLoading}
 							/>
 							<div className={cls.priorityBlock}>
@@ -69,7 +78,12 @@ const CreateTaskModal = (props: CreateTaskModalProps) => {
 					)}
 					<button
 						className={cls.addTask}
-						onClick={handleCreateTask.bind(null, title, activePriority)}
+						onClick={handleCreateTask.bind(
+							null,
+							title,
+							description,
+							activePriority
+						)}
 						disabled={createLoading}
 					>
 						Создать <Plus />

@@ -7,6 +7,8 @@ export interface ITask {
 	priority: IPriority
 	status: IStatus
 	title: string
+	description: string
+	publishedAt: number
 	__v: number
 	_id: string
 	users?: IUser
