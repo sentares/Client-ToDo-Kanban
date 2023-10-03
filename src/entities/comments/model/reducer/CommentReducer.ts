@@ -20,6 +20,17 @@ export const CommentReducer = (
 			return { fetchLoading: false, error: null, comments: action.payload }
 		case CommentActionsTypes.FETCH_COMMENT_ERROR:
 			return { fetchLoading: false, error: action.payload, comments: [] }
+
+		case CommentActionsTypes.CREATE_COMMENT:
+			return { ...state, fetchLoading: true }
+		case CommentActionsTypes.CREATE_COMMENT_SUCCESS:
+			return {
+				...state,
+				fetchLoading: false,
+				comments: [...state.comments, action.payload],
+			}
+		case CommentActionsTypes.CREATE_COMMENT_ERROR:
+			return { ...state, fetchLoading: false, error: action.payload }
 		default:
 			return state
 	}

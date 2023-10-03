@@ -3,6 +3,25 @@
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
+	.userEmail {
+		padding: 8px;
+		border-radius: 10px;
+		margin: 4px;
+		background-color: var(--calm-red);
+		cursor: pointer;
+		&:hover {
+			background: var(--font-sceen);
+			color: var(--calm-red);
+		}
+	}
+	.activeEmail {
+		padding: 8px;
+		border-radius: 10px;
+		margin: 4px;
+		cursor: pointer;
+		background: var(--font-sceen);
+		color: var(--calm-red);
+	}
 	.project {
 		width: 320px;
 		padding: 20px;
@@ -12,9 +31,9 @@
 		cursor: pointer;
 		transition: 0.3s;
 		&:hover {
-			background: var(--blue-bg);
+			background: var(--def-blue);
 			scale: 1.05;
-			border: 2px solid;
+			border: 2px solid var(--calm-red);
 		}
 		&:active {
 			scale: 1;

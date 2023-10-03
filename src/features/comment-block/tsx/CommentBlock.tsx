@@ -4,7 +4,7 @@ import cls from './CommentBlock.module.scss'
 
 interface CommentBlockProps {
 	comments: IComment[]
-	handleClickToResponse: (id: string) => void
+	handleClickToResponse: (comm: IComment) => void
 }
 
 const CommentBlock = (props: CommentBlockProps) => {
@@ -24,7 +24,7 @@ const CommentBlock = (props: CommentBlockProps) => {
 						<div className={cls.textComm}>{rootComment.title}</div>
 						<button
 							className={cls.resp}
-							onClick={handleClickToResponse.bind(null, rootComment._id)}
+							onClick={handleClickToResponse.bind(null, rootComment)}
 						>
 							ответить
 						</button>

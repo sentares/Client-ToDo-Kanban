@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { toDate } from 'shared/lib/toDate'
 import cls from './TaskEditModal.module.scss'
 import { copyToClipboard } from 'shared/lib/copyText'
+import { useActions, useTypedSelector } from 'app/providers/store'
 
 interface ITaskEditModalProps {
 	fetchedTask: ITask
@@ -16,9 +17,13 @@ interface ITaskEditModalProps {
 
 const TaskEditModal = (prop: ITaskEditModalProps) => {
 	const { fetchedTask, comments, ruleModal, fetchCommentLoading } = prop
+	const { createComment } = useActions()
+
+	const { profile } = useTypedSelector(state => state.profile)
 
 	const [newComm, setNewComm] = useState('')
-	const [clickedCommId, setClickedCommId] = useState('')
+	const [clickedComm, setClickedComm] = useState<IComment | null>(null)
+	const [clickedId, setClickedId] = useState('')
 
 	const [areaDescription, setAreaRedscription] = useState(
 		fetchedTask.description
@@ -37,10 +42,16 @@ const TaskEditModal = (prop: ITaskEditModalProps) => {
 		}
 	}
 
-	const handleClickToResponse = (toRespId: string) => {
-		setClickedCommId(toRespId)
+	const handleClickToResponse = (toRespComm: IComment) => {
+		setClickedComm(toRespComm)
+		setClickedId(toRespComm._id)
 	}
-	const handlePostComm = () => {}
+
+	const handlePostComm = () => {
+		createComment(fetchedTask._id, clickedId, profile.token, newComm)
+		setNewComm('')
+	}
+
 	return (
 		<div className={cls.taskEditModal}>
 			<div className={cls.content}>
@@ -92,6 +103,20 @@ const TaskEditModal = (prop: ITaskEditModalProps) => {
 							/>
 						)}
 						<div className={cls.textComm}>
+							{clickedComm && (
+								<label className={cls.respToAuthor}>
+									<X
+										className={cls.closeIcon}
+										size={12}
+										onClick={() => setClickedComm(null)}
+									/>
+									ответ{' '}
+									<strong style={{ color: 'white' }}>
+										{clickedComm.author.email}
+									</strong>
+									:
+								</label>
+							)}
 							<input
 								type='text'
 								placeholder='Напишите комментарии'

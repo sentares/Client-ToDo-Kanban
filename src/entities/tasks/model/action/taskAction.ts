@@ -33,8 +33,6 @@ export const createTask = (
 ) => {
 	return async (dispatch: Dispatch<TasksActions>) => {
 		try {
-			console.log(description, 'createTask')
-
 			dispatch({ type: TaskActionsType.CREATE_TASKS })
 
 			const config: AxiosRequestConfig = {

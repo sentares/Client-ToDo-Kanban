@@ -36,6 +36,8 @@ const ProjectsPage = () => {
 
 	console.log(profile, 'profile')
 
+	console.log(users)
+
 	return (
 		<div className={cls.projectsPage}>
 			{projectsLoading || usersLoading ? (
@@ -50,6 +52,9 @@ const ProjectsPage = () => {
 							<div
 								key={user._id}
 								onClick={signInProfile.bind(null, user.email)}
+								className={
+									profile.id === user._id ? cls.activeEmail : cls.userEmail
+								}
 							>
 								{user.email}
 							</div>
